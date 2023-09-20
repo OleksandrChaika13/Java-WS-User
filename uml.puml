@@ -1,0 +1,76 @@
+@startuml
+class org.example.server.User {
+# String name
+# String phone
+# int age
+# Gender gender
++ String getName()
++ void setName(String)
++ String getPhone()
++ void setPhone(String)
++ int getAge()
++ void setAge(int)
++ Gender getGender()
++ void setGender(Gender)
+}
+enum org.example.server.Gender {
++  MALE
++  FEMALE
++ String value()
++ {static} Gender fromValue(String)
+}
+enum org.example.client.generated.Gender {
++  MALE
++  FEMALE
++ String value()
++ {static} Gender fromValue(String)
+}
+class org.example.server.UserServiceImpl {
+- UserRepository userRepository
++ User getUser(String)
+}
+class org.example.server.UserRepository {
+- {static} Map<String,User> users
+- {static} void initData()
++ User findUserData(String)
+}
+class org.example.client.generated.User {
+# int age
+# Gender gender
+# String name
+# String phone
++ int getAge()
++ void setAge(int)
++ Gender getGender()
++ void setGender(Gender)
++ String getName()
++ void setName(String)
++ String getPhone()
++ void setPhone(String)
+}
+class org.example.client.generated.UserServiceImplService {
+- {static} URL USERSERVICEIMPLSERVICE_WSDL_LOCATION
+- {static} WebServiceException USERSERVICEIMPLSERVICE_EXCEPTION
+- {static} QName USERSERVICEIMPLSERVICE_QNAME
++ UserService getUserServiceImplPort()
++ UserService getUserServiceImplPort(WebServiceFeature)
+- {static} URL __getWsdlLocation()
+}
+class org.example.client.generated.ObjectFactory {
++ User createUser()
+}
+interface org.example.server.UserService {
+~ User getUser(String)
+}
+interface org.example.client.generated.UserService {
++ User getUser(String)
+}
+class org.example.server.UserServicePublisher {
+- {static} Logger LOGGER
++ {static} void main(String[])
+}
+
+
+org.example.server.UserService <|.. org.example.server.UserServiceImpl
+jakarta.xml.ws.Service <|-- org.example.client.generated.UserServiceImplService
+@enduml
